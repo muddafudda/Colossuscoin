@@ -1,4 +1,4 @@
-# Copyright (c) 2014 ColossusCoin Developers
+# Copyright (c) 2014 ColossusCoin2 Developers
 # Copyright (c) 2009-2010 Satoshi Nakamoto
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -104,9 +104,13 @@ xCXXFLAGS=-O2 $(EXT_OPTIONS) -pthread -Wall -Wextra -Wno-ignored-qualifiers -Wfo
 # adds some defaults in front. Unfortunately, LDFLAGS=... $(LDFLAGS) does not work.
 xLDFLAGS=$(LDHARDENING) $(LDFLAGS)
 
-# create obj folder
+# create necessary build folders
 OBJDIR = obj
-$(shell mkdir -p $(OBJDIR))
+ZEROCOINDIR = obj/zerocoin
+$(shell mkdir -p $(OBJDIR) && mkdir -p $(ZERODIR))
+
+# create necessary permission to build leveldb
+$(shell chmod 777 leveldb/build_detect_platform)
 
 OBJS= \
    obj/groestl.o \
