@@ -1,8 +1,8 @@
-<h2>ColossusCoin2 0.4.4 BETA</h2>
+<h1>ColossusCoin2 0.4.4 BETA</h1>
 
-Copyright (c) 2014 ColossusCoin2 Developers
-Copyright (c) 2013 NovaCoin Developers
-Copyright (c) 2011-2012 PPCoin Developers
+Copyright (c) 2014 ColossusCoin2 Developers <br />
+Copyright (c) 2013 NovaCoin Developers <br />
+Copyright (c) 2011-2012 PPCoin Developers <br />
 
 Distributed under the MIT/X11 software license, see the accompanying
 file license.txt or http://www.opensource.org/licenses/mit-license.php.
