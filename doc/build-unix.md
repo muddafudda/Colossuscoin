@@ -8,9 +8,7 @@ the OpenSSL Toolkit (http://www.openssl.org/).  This product includes
 cryptographic software written by Eric Young (eay+AEA-cryptsoft.com) and UPnP
 software written by Thomas Bernard.
 
-
-UNIX BUILD NOTES
-+AD0APQA9AD0APQA9AD0APQA9AD0APQA9AD0APQA9AD0-
+<h1>Build Unix</h1>
 
 To Build
 --------
