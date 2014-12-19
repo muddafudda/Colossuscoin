@@ -1,7 +1,7 @@
 # Copyright (c) 2014 ColossusCoin2 Developers
 # Copyright (c) 2009-2010 Satoshi Nakamoto
 # Distributed under the MIT/X11 software license, see the accompanying
-# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+# file LICENSE.md or http://www.opensource.org/licenses/mit-license.php.
 
 USE_UPNP:=0
 USE_IPV6:=1
@@ -107,10 +107,10 @@ xLDFLAGS=$(LDHARDENING) $(LDFLAGS)
 # create necessary build folders
 OBJDIR = obj
 ZEROCOINDIR = obj/zerocoin
-$(shell mkdir -p $(OBJDIR) && mkdir -p $(ZERODIR))
+$(shell mkdir -p $(OBJDIR) && mkdir -p $(ZEROCOINDIR))
 
 # create necessary permission to build leveldb
-$(shell chmod 777 leveldb/build_detect_platform)
+$(shell chmod +x leveldb/build_detect_platform)
 
 OBJS= \
    obj/groestl.o \
