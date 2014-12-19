@@ -370,16 +370,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/zerocoin/ZeroTest.cpp
 
 RESOURCES += \
-    src/qt/bitcoin.qrc \
-    src/makefile.* \
-    src/leveldb/* \
-    src/leveldb/db/* \
-    src/leveldb/include/* \
-    src/leveldb/helpers/memenv/* \
-    src/leveldb/util/* \
-    src/leveldb/table/* \
-    src/leveldb/port/* \
-    src/leveldb/port/win/* \
+    src/qt/bitcoin.qrc
 
 FORMS += \
     src/qt/forms/coincontroldialog.ui \
