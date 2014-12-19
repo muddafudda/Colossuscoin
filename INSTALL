@@ -1,0 +1,9 @@
+Building ColossusCoin2
+
+See doc/readme-qt.rst for instructions on building ColossusCoin2 QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of ColossusCoin2.
+
+See doc/build-*.txt for instructions on building ColossusCoin2d,
+the intended-for-services, no-graphical-interface, reference
+implementation of ColossusCoin2.
