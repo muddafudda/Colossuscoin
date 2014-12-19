@@ -8,6 +8,8 @@ OpenSSL Toolkit (http://www.openssl.org/).  This product includes cryptographic
 software written by Eric Young (eay@cryptsoft.com) and UPnP software written by
 Thomas Bernard.
 
+<h1>Build OSX</h1>
+
 See readme-qt.rst for instructions on building ColossusCoin2 QT, the
 graphical user interface.
 
