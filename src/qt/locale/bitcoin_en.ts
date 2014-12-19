@@ -1697,8 +1697,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+86"/>
         <location line="+86"/>
         <location line="+32"/>
-        <source>0.00 hack</source>
-        <translation type="unfinished">123.456 hack {0.00 ?}</translation>
+        <source>0.00 CV2</source>
+        <translation type="unfinished">123.456 CV2 {0.00 ?}</translation>
     </message>
     <message>
         <location line="-191"/>
@@ -1767,8 +1767,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+16"/>
-        <source>123.456 hack</source>
-        <translation>123.456 hack</translation>
+        <source>123.456 CV2</source>
+        <translation>123.456 CV2</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -1782,8 +1782,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1926,7 +1926,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <source>The address to send the payment to  (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation></translation>
     </message>
     <message>
@@ -1956,8 +1956,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
 </context>
 <context>
@@ -1980,8 +1980,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>The address to sign the message with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to sign the message with (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>The address to sign the message with (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2044,8 +2044,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>The address the message was signed with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address the message was signed with (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>The address the message was signed with (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -2060,8 +2060,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="-2"/>

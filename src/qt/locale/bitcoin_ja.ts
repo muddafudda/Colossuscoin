@@ -264,7 +264,7 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
     <message>
         <location line="-58"/>
         <source>ColossusCoin2 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>ただいま、暗号化手順を完成するため、ブラックコインQTは閉じます。尚、ウォレットを暗号化をされたにしても、hackのウイルスから盗難防止の報償できないことを、ご理解をお願い足します。</translation>
+        <translation>ただいま、暗号化手順を完成するため、ブラックコインQTは閉じます。尚、ウォレットを暗号化をされたにしても、CV2のウイルスから盗難防止の報償できないことを、ご理解をお願い足します。</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1680,8 +1680,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+86"/>
         <location line="+86"/>
         <location line="+32"/>
-        <source>0.00 hack</source>
-        <translation>123.456 hack {0.00 ?}</translation>
+        <source>0.00 CV2</source>
+        <translation>123.456 CV2 {0.00 ?}</translation>
     </message>
     <message>
         <location line="-191"/>
@@ -1750,8 +1750,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+16"/>
-        <source>123.456 hack</source>
-        <translation>123.456 hack</translation>
+        <source>123.456 CV2</source>
+        <translation>123.456 CV2</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -1765,8 +1765,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>ブラックコインアドレスの入力 (例；ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>ブラックコインアドレスの入力 (例；CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1909,8 +1909,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>支払いへ送るアドレス (例：ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to send the payment to  (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>支払いへ送るアドレス (例：CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1939,8 +1939,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>ブラックコインアドレスの入力 (例；ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>ブラックコインアドレスの入力 (例；CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
 </context>
 <context>
@@ -1963,8 +1963,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>メッセージの署名するアドレス(例：ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to sign the message with (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>メッセージの署名するアドレス(例：CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2027,8 +2027,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>メッセージの署名するアドレス(例：ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address the message was signed with (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>メッセージの署名するアドレス(例：CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -2043,8 +2043,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>ブラックコインのアドレスを入力(例：ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a ColossusCoin2 address (e.g. CfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>ブラックコインのアドレスを入力(例：CfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="-2"/>
