@@ -1,5 +1,5 @@
-<h1>ColossusCoin</h1>
-<h4><i>Environmentally friendly, peer to peer digital currency.</i></h4>
+<h1>ColossusCoin2</h1>
+<h4><i>Environmentally friendly, peer to peer digital currency</i></h4>
 <img src="https://i.imgur.com/fY47HwT.jpg" />
 
 | Specification  | Details |
