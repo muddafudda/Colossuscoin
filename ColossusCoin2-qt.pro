@@ -370,7 +370,16 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/zerocoin/ZeroTest.cpp
 
 RESOURCES += \
-    src/qt/bitcoin.qrc
+    src/qt/bitcoin.qrc \
+    src/makefile.* \
+    src/leveldb/* \
+    src/leveldb/db/* \
+    src/leveldb/include/* \
+    src/leveldb/helpers/memenv/* \
+    src/leveldb/util/* \
+    src/leveldb/table/* \
+    src/leveldb/port/* \
+    src/leveldb/port/win/* \
 
 FORMS += \
     src/qt/forms/coincontroldialog.ui \
@@ -391,15 +400,6 @@ HEADERS += src/qt/qrcodedialog.h
 SOURCES += src/qt/qrcodedialog.cpp
 FORMS += src/qt/forms/qrcodedialog.ui
 }
-
-
-
-
-
-
-
-
-
 
 CODECFORTR = UTF-8
 
@@ -422,7 +422,8 @@ QMAKE_EXTRA_COMPILERS += TSQM
 
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
-    doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
+    doc/*.rst doc/*.txt doc/*.md doc/Doxyfile res/bitcoin-qt.rc README.md INSTALL.md LICENSE.md \
+    doc/README.md .gitignore .gitattributes
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
