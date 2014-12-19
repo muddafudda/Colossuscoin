@@ -1,3 +1,4 @@
+# Copyright (c) 2014 ColossusCoin Developers
 # Copyright (c) 2009-2010 Satoshi Nakamoto
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -102,6 +103,10 @@ xCXXFLAGS=-O2 $(EXT_OPTIONS) -pthread -Wall -Wextra -Wno-ignored-qualifiers -Wfo
 # LDFLAGS can be specified on the make command line, so we use xLDFLAGS that only
 # adds some defaults in front. Unfortunately, LDFLAGS=... $(LDFLAGS) does not work.
 xLDFLAGS=$(LDHARDENING) $(LDFLAGS)
+
+# create obj folder
+OBJDIR = obj
+$(shell mkdir -p $(OBJDIR))
 
 OBJS= \
    obj/groestl.o \
