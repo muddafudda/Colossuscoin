@@ -9,10 +9,13 @@
 
 using namespace std;
 
-extern unsigned int nStakeMaxAge;
-extern unsigned int nTargetSpacing;
+extern int nStakeMaxAge;
+extern int nStakeTargetSpacing;
 
 typedef std::map<int, unsigned int> MapModifierCheckpoints;
+// Modifier interval: time to elapse before new modifier is computed
+// Set to 16 minute for production network and 20-minute for test network
+unsigned int nModifierInterval = MODIFIER_INTERVAL;
 
 // Hard checkpoints of stake modifiers to ensure they are deterministic
 static std::map<int, unsigned int> mapStakeModifierCheckpoints =
@@ -148,7 +151,7 @@ bool ComputeNextStakeModifier(const CBlockIndex* pindexPrev, uint64_t& nStakeMod
 
     // Sort candidate blocks by timestamp
     vector<pair<int64_t, uint256> > vSortedByTimestamp;
-    vSortedByTimestamp.reserve(64 * nModifierInterval / nTargetSpacing);
+    vSortedByTimestamp.reserve(64 * nModifierInterval / nStakeTargetSpacing);
     int64_t nSelectionInterval = GetStakeModifierSelectionInterval();
     int64_t nSelectionIntervalStart = (pindexPrev->GetBlockTime() / nModifierInterval) * nModifierInterval - nSelectionInterval;
     const CBlockIndex* pindex = pindexPrev;

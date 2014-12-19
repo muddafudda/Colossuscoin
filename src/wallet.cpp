@@ -14,10 +14,10 @@
 #include <boost/algorithm/string/replace.hpp>
 
 using namespace std;
-extern unsigned int nStakeMaxAge;
+extern int nStakeMaxAge;
 
-unsigned int nStakeSplitAge = 1 * 24 * 60 * 60;
-int64_t nStakeCombineThreshold = 1000 * COIN;
+unsigned int nStakeSplitAge = 10 * 24 * 60 * 60;
+int64_t nStakeCombineThreshold = 200000 * COIN;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1726,7 +1726,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         if (!txNew.GetCoinAge(txdb, nCoinAge))
             return error("CreateCoinStake : failed to calculate coin age");
 
-        int64_t nReward = GetProofOfStakeReward(nCoinAge, nFees);
+        int64_t nReward = GetProofOfStakeReward(nCoinAge, nBits, txNew.nTime, nFees);
         if (nReward <= 0)
             return false;
 
