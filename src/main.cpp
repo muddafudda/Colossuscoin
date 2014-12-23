@@ -986,12 +986,22 @@ int64_t GetProofOfWorkReward(int64_t nFees)
 // miner's coin stake reward based on coin age spent (coin-days)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, int64_t nFees)
 {
-    CBigNum bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 6% year interest
-    int64_t nRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE;
+    int64_t nRewardCoinYear;
+
+    CBigNum bnRewardCoinYearLimit;
+    int64_t nRewardCoinYearLimit;
+
+    bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 6% year interest
+    nRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE;
+
     CBigNum bnTarget;
+
     bnTarget.SetCompact(nBits);
+
     CBigNum bnTargetLimit = bnProofOfStakeLimit;
+
     bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
+
     int64_t nSubsidyLimit = 25000 * COIN;
 	
     // ColossusCoin2: reward for coin-year is cut in half every 64x multiply of PoS difficulty
@@ -1002,7 +1012,9 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
     //
     // nRewardCoinYear = 1 / (posdiff ^ 1/4)
 
-    CBigNum bnLowerBound = 4 * CENT; // Lower interest bound is 4% per year
+    CBigNum bnLowerBound;
+    bnLowerBound = 4 * CENT; // Lower interest bound is 4% per year
+
     CBigNum bnUpperBound = bnRewardCoinYearLimit;
     while (bnLowerBound + CENT <= bnUpperBound)
     {
@@ -1016,7 +1028,8 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
             bnLowerBound = bnMidValue;
     }
 
-    int64_t nRewardCoinYear = min(nRewardCoinYear, nRewardCoinYearLimit);
+    nRewardCoinYear = bnUpperBound.getuint64();
+    nRewardCoinYear = min(nRewardCoinYear, nRewardCoinYearLimit);
 	
     int64_t nSubsidy = (nCoinAge * 33 * nRewardCoinYear) / (365 * 33 + 8);
 
