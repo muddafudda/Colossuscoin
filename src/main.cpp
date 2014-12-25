@@ -1042,7 +1042,7 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
 }
 
 static const int64_t nTargetTimespan = 60 * 60;  // 60 mins
-static const int64_t nTargetSpacingWorkMax = 4 * nStakeTargetSpacing; // 2-hour
+static const int64_t nTargetSpacingWorkMax = 2 * nStakeTargetSpacing; // 4 minutes
 //
 // maximum nBits value could possible be required nTime after
 //
