@@ -993,7 +993,7 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
     else
         nSubsidy = GetProofOfStakeRewardV1(nCoinAge, nBits, nTime, nFees);
 
-    return nSubsidy;
+    return nSubsidy + nFees;
 }
 
 int64_t GetProofOfStakeRewardV1(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, int64_t nFees)
