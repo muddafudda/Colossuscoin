@@ -986,6 +986,18 @@ int64_t GetProofOfWorkReward(int64_t nFees)
 // miner's coin stake reward based on coin age spent (coin-days)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, int64_t nFees)
 {
+    int64_t nSubsidy = 0;
+
+    if ( nTime > REWARD_SWITCH_TIME )
+        nSubsidy = GetProofOfStakeRewardV2(nCoinAge, nBits, nTime, nFees);
+    else
+        nSubsidy = GetProofOfStakeRewardV1(nCoinAge, nBits, nTime, nFees);
+
+    return nSubsidy;
+}
+
+int64_t GetProofOfStakeRewardV1(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, int64_t nFees)
+{
     int64_t nRewardCoinYear;
 
     CBigNum bnRewardCoinYearLimit;
@@ -995,13 +1007,9 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
     nRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE;
 
     CBigNum bnTarget;
-
     bnTarget.SetCompact(nBits);
-
     CBigNum bnTargetLimit = bnProofOfStakeLimit;
-
     bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
-
     int64_t nSubsidyLimit = 25000 * COIN;
 	
     // ColossusCoin2: reward for coin-year is cut in half every 64x multiply of PoS difficulty
@@ -1037,6 +1045,59 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
         printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRId64" nBits=%d\n", FormatMoney(nSubsidy).c_str(), nCoinAge, nBits);
 
 	nSubsidy = min(nSubsidy, nSubsidyLimit) + nFees;
+
+    return nSubsidy + nFees;
+}
+
+int64_t GetProofOfStakeRewardV2(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, int64_t nFees)
+{
+    int64_t nRewardCoinYear;
+
+    CBigNum bnRewardCoinYearLimit;
+    int64_t nRewardCoinYearLimit;
+
+    bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 8% year interest
+    nRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE;
+
+    CBigNum bnTarget;
+    bnTarget.SetCompact(nBits);
+    CBigNum bnTargetLimit = bnProofOfStakeLimit;
+    bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
+    int64_t nSubsidyLimit = 4000 * COIN;
+	
+    // ColossusCoin2: reward for coin-year is cut in half every 64x multiply of PoS difficulty
+    // A reasonably continuous curve is used to avoid shock to market
+    // (bnRewardCoinYearLimit / nRewardCoinYear) ** 4 == bnProofOfStakeLimit / bnTarget
+    //
+    // Human readable form:
+    //
+    // nRewardCoinYear = 1 / (posdiff ^ 1/4)
+
+    CBigNum bnLowerBound;
+    bnLowerBound = 4 * CENT; // Lower interest bound is 4% per year
+
+    CBigNum bnUpperBound = bnRewardCoinYearLimit;
+    while (bnLowerBound + CENT <= bnUpperBound)
+    {
+	    CBigNum bnMidValue = (bnLowerBound + bnUpperBound) / 2;
+        if (fDebug && GetBoolArg("-printcreation"))
+            printf("GetProofOfStakeReward() : lower=%"PRId64" upper=%"PRId64" mid=%"PRId64"\n", bnLowerBound.getuint64(), bnUpperBound.getuint64(), bnMidValue.getuint64());
+
+        if (bnMidValue * bnMidValue * bnMidValue * bnMidValue * bnTargetLimit > bnRewardCoinYearLimit * bnRewardCoinYearLimit * bnRewardCoinYearLimit * bnRewardCoinYearLimit * bnTarget)
+            bnUpperBound = bnMidValue;
+        else
+            bnLowerBound = bnMidValue;
+    }
+
+    nRewardCoinYear = bnUpperBound.getuint64();
+    nRewardCoinYear = min(nRewardCoinYear, nRewardCoinYearLimit);
+	
+    int64_t nSubsidy = (nCoinAge * 33 * nRewardCoinYear) / (365 * 33 + 8);
+
+        if (fDebug && GetBoolArg("-printcreation"))
+        printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRId64" nBits=%d\n", FormatMoney(nSubsidy).c_str(), nCoinAge, nBits);
+
+	nSubsidy = min(nSubsidy, nSubsidyLimit) + (nFees / 10);
 
     return nSubsidy + nFees;
 }
