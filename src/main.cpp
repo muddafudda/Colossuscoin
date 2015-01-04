@@ -991,7 +991,7 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
     CBigNum bnRewardCoinYearLimit;
     int64_t nRewardCoinYearLimit;
 
-    bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 6% year interest
+    bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 8% year interest
     nRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE;
 
     CBigNum bnTarget;
