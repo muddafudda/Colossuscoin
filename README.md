@@ -6,11 +6,11 @@
 | ------------- | ------------- |
 | Protocol  | 100% Proof-of-Stake (PoS)  |
 | Block Time  | 2 minutes |
-| Block Rewards  | 25,000 max  |
+| Block Rewards  | 4,000 max  |
 | Stake  | 4-8% per year depending on difficulty  |
 | Stake Weight | 7/28 min/max days |
 | Stake Threshold | 10 days |
-| Fee | 50 Coin |
+| Fee | 20 Coin |
 | RPC Port  | 43521  |
 | P2P Port | 43522 |
 | Cryptographic Algorithm  | x11  |
