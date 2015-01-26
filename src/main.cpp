@@ -991,7 +991,7 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
     bnTarget.SetCompact(nBits);
     CBigNum bnTargetLimit = bnProofOfStakeLimit;
     bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
-    int64_t nSubsidyLimit = 4000 * COIN;
+    int64_t nSubsidyLimit = 5000 * COIN;
 	
     // PayCon: reward for coin-year is cut in half every 64x multiply of PoS difficulty
     // A reasonably continuous curve is used to avoid shock to market
