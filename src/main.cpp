@@ -2501,10 +2501,10 @@ bool LoadBlockIndex(bool fAllowNew)
 
     if (fTestNet)
     {
-        pchMessageStart[0] = 0xa1;
-        pchMessageStart[1] = 0xa0;
-        pchMessageStart[2] = 0xa2;
-        pchMessageStart[3] = 0xa3;
+        pchMessageStart[0] = 0x70;
+        pchMessageStart[1] = 0xa3;
+        pchMessageStart[2] = 0x27;
+        pchMessageStart[3] = 0xb3;
 
         bnProofOfWorkLimit = bnProofOfWorkLimitTestNet; // 0x0000ffff PoW base target is fixed in testnet
         nStakeMinAge = 20 * 60; // test net min age is 20 min
@@ -2532,7 +2532,7 @@ bool LoadBlockIndex(bool fAllowNew)
 
         const char* pszTimestamp = "Thu, 11 Dec 2014 12:48:01 GMT";
         CTransaction txNew;
-        txNew.nTime = 1418302083;
+        txNew.nTime = 1422270500;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -2542,12 +2542,12 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1418302083;
+        block.nTime    = 1422270500;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 3868042;
+        block.nNonce   = 0;
 		if(fTestNet)
         {
-            block.nNonce   = 3868042;
+            block.nNonce   = 0;
         }
         if (false  && (block.GetHash() != hashGenesisBlock)) {
 
@@ -2841,7 +2841,7 @@ bool static AlreadyHave(CTxDB& txdb, const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xa1, 0xa0, 0xa2, 0xa3 };
+unsigned char pchMessageStart[4] = { 0x70, 0xa6, 0x23, 0xa9 };
 
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 {
