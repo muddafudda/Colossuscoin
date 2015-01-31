@@ -1,8 +1,4 @@
-<h1>ColossusCoin2 0.4.4 BETA</h1>
-
-Copyright (c) 2014 ColossusCoin2 Developers <br />
-Copyright (c) 2013 NovaCoin Developers <br />
-Copyright (c) 2011-2012 PPCoin Developers <br />
+ColossusCoin2 v1.1.0.0
 
 Distributed under the MIT/X11 software license, see the accompanying
 file license.txt or http://www.opensource.org/licenses/mit-license.php.
@@ -15,6 +11,6 @@ Intro
 -----
 ColossusCoin2 is a free open source project derived from Bitcoin, with
 the goal of providing a long-term energy-efficient scrypt-based crypto-currency.
-Built on the foundation of Bitcoin, PPCoin and NovaCoin, innovations such as proof-of-stake
+Built on the foundation of Bitcoin, PPCoin and NovaCoin, innovations such as proof-of-stake and scrypt
 help further advance the field of crypto-currency.
 

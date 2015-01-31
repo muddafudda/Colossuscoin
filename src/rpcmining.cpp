@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
+// Copyright (c) 2014 The ColossusCoin2 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +14,7 @@
 using namespace json_spirit;
 using namespace std;
 
-extern int nStakeTargetSpacing;
+extern unsigned int nTargetSpacing;
 
 Value getsubsidy(const Array& params, bool fHelp)
 {
@@ -56,7 +57,7 @@ Value getmininginfo(const Array& params, bool fHelp)
     weight.push_back(Pair("combined",  (uint64_t)nWeight));
     obj.push_back(Pair("stakeweight", weight));
 
-    obj.push_back(Pair("stakeinterest",    (uint64_t)COIN_YEAR_REWARD));
+    obj.push_back(Pair("stakeinterest",    (uint64_t)GetProofOfStakeReward(0, GetLastBlockIndex(pindexBest, true)->nBits, GetLastBlockIndex(pindexBest, true)->nTime, true)));
     obj.push_back(Pair("testnet",       fTestNet));
     return obj;
 }
@@ -73,7 +74,7 @@ Value getstakinginfo(const Array& params, bool fHelp)
 
     uint64_t nNetworkWeight = GetPoSKernelPS();
     bool staking = nLastCoinStakeSearchInterval && nWeight;
-    int nExpectedTime = staking ? (nStakeTargetSpacing * nNetworkWeight / nWeight) : -1;
+    int nExpectedTime = staking ? (nTargetSpacing * nNetworkWeight / nWeight) : -1;
 
     Object obj;
 
@@ -217,7 +218,7 @@ Value getworkex(const Array& params, bool fHelp)
         if(coinbase.size() == 0)
             pblock->vtx[0].vin[0].scriptSig = mapNewBlock[pdata->hashMerkleRoot].second;
         else
-            CDataStream(coinbase, SER_NETWORK, PROTOCOL_VERSION) >> pblock->vtx[0]; // FIXME - DRM!
+            CDataStream(coinbase, SER_NETWORK, PROTOCOL_VERSION) >> pblock->vtx[0]; // FIXME - HACK!
 
         pblock->hashMerkleRoot = pblock->BuildMerkleTree();
 
@@ -488,7 +489,8 @@ Value getblocktemplate(const Array& params, bool fHelp)
     result.push_back(Pair("previousblockhash", pblock->hashPrevBlock.GetHex()));
     result.push_back(Pair("transactions", transactions));
     result.push_back(Pair("coinbaseaux", aux));
-    result.push_back(Pair("coinbasevalue", (int64_t)pblock->vtx[0].vout[0].nValue));
+    result.push_back(Pair("coinbasevalue", (int64_t)pblock->vtx[0].vout[0].nValue + (int64_t)pblock->vtx[0].vout[1].nValue));
+    result.push_back(Pair("charityvalue", (int64_t)pblock->vtx[0].vout[0].nValue));
     result.push_back(Pair("target", hashTarget.GetHex()));
     result.push_back(Pair("mintime", (int64_t)pindexPrev->GetPastTimeLimit()+1));
     result.push_back(Pair("mutable", aMutable));
