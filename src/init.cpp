@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
+// Copyright (c) 2014 The ColossusCoin2 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include "txdb.h"
@@ -10,7 +11,6 @@
 #include "util.h"
 #include "ui_interface.h"
 #include "checkpoints.h"
-#include "zerocoin/ZeroTest.h"
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
@@ -673,7 +673,7 @@ bool AppInit2()
         }
     }
 
-    if (mapArgs.count("-reservebalance")) // ppcoin: reserve balance amount
+    if (mapArgs.count("-reservebalance")) // ColossusCoin2: reserve balance amount
     {
         if (!ParseMoney(mapArgs["-reservebalance"], nReserveBalance))
         {
@@ -682,7 +682,7 @@ bool AppInit2()
         }
     }
 
-    if (mapArgs.count("-checkpointkey")) // ppcoin: checkpoint master priv key
+    if (mapArgs.count("-checkpointkey")) // ColossusCoin2: checkpoint master priv key
     {
         if (!Checkpoints::SetCheckpointPrivKey(GetArg("-checkpointkey", "")))
             InitError(_("Unable to sign checkpoint, wrong checkpointkey?\n"));
@@ -753,16 +753,6 @@ bool AppInit2()
         if (nFound == 0)
             printf("No blocks matching %s were found\n", strMatch.c_str());
         return false;
-    }
-
-    // ********************************************************* Testing Zerocoin
-
-
-    if (GetBoolArg("-zerotest", false))
-    {
-        printf("\n=== ZeroCoin tests start ===\n");
-        Test_RunAllTests();
-        printf("=== ZeroCoin tests end ===\n\n");
     }
 
     // ********************************************************* Step 8: load wallet

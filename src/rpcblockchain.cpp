@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
+// Copyright (c) 2014 The ColossusCoin2 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -274,7 +275,7 @@ Value getblockbynumber(const Array& params, bool fHelp)
     return blockToJSON(block, pblockindex, params.size() > 1 ? params[1].get_bool() : false);
 }
 
-// ppcoin: get information of sync-checkpoint
+// ColossusCoin2: get information of sync-checkpoint
 Value getcheckpoint(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)

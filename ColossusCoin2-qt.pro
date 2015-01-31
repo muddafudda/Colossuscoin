@@ -1,7 +1,10 @@
+macx{
+ cache()
+}
 TEMPLATE = app
 TARGET = ColossusCoin2-qt
 VERSION = 1.0.0
-INCLUDEPATH += src src/json src/qt
+INCLUDEPATH += src src/json src/qt /usr/local/include
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
@@ -14,17 +17,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
 }
 
-win32 {
-    BOOST_LIB_SUFFIX=-mgw48-mt-s-1_55
-    BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
-    BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
-    BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
-    BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
-    OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1g/include
-    OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1g
-    MINIUPNPC_INCLUDE_PATH=C:/deps/
-    MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
-}
+#Added win32 conditional - Yash
 
 
 # for boost 1.37, add -mt to the boost libraries
@@ -60,11 +53,11 @@ QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
 # This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
 }
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
-
 win32:QMAKE_LFLAGS *= -Wl,--large-address-aware -static
 win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
 lessThan(QT_MAJOR_VERSION, 5): win32: QMAKE_LFLAGS *= -static
 
+USE_QRCODE=1
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
 contains(USE_QRCODE, 1) {
@@ -130,7 +123,10 @@ SOURCES += src/txdb-leveldb.cpp \
     src/luffa.c \
     src/shavite.c \
     src/simd.c \
-    src/skein.c
+    src/skein.c \
+        src/fugue.c \
+        src/hamsi.c
+
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a
@@ -177,7 +173,6 @@ contains(USE_O3, 1) {
 QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
 
 
-
 # Input
 DEPENDPATH += src src/json src/qt
 HEADERS += src/qt/bitcoingui.h \
@@ -202,20 +197,10 @@ HEADERS += src/qt/bitcoingui.h \
     src/sync.h \
     src/util.h \
     src/uint256.h \
+    src/uint256_t.h \
     src/kernel.h \
     src/scrypt.h \
     src/pbkdf2.h \
-    src/zerocoin/Accumulator.h \
-    src/zerocoin/AccumulatorProofOfKnowledge.h \
-    src/zerocoin/Coin.h \
-    src/zerocoin/CoinSpend.h \
-    src/zerocoin/Commitment.h \
-    src/zerocoin/ParamGeneration.h \
-    src/zerocoin/Params.h \
-    src/zerocoin/SerialNumberSignatureOfKnowledge.h \
-    src/zerocoin/SpendMetaData.h \
-    src/zerocoin/ZeroTest.h \
-    src/zerocoin/Zerocoin.h \
     src/serialize.h \
     src/strlcpy.h \
     src/main.h \
@@ -267,13 +252,13 @@ HEADERS += src/qt/bitcoingui.h \
     src/allocators.h \
     src/ui_interface.h \
     src/qt/rpcconsole.h \
-		src/qt/blockbrowser.h \
-		src/qt/statisticspage.h \
+        src/qt/blockbrowser.h \
+        src/qt/statisticspage.h \
     src/version.h \
     src/netbase.h \
     src/clientversion.h \
-		src/chatwindow.h \
-		src/serveur.h \
+        src/qt/chatwindow.h \
+        src/qt/serveur.h \
     src/bloom.h \
     src/checkqueue.h \
     src/hash.h \
@@ -290,6 +275,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/sph_shavite.h \
     src/sph_simd.h \
     src/sph_skein.h \
+        src/sph_fugue.h \
+        src/sph_hamsi.h \
     src/sph_types.h \
     src/threadsafety.h \
     src/txdb-leveldb.h
@@ -306,10 +293,10 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
-		src/qt/chatwindow.cpp \
-		src/qt/statisticspage.cpp \
-		src/qt/blockbrowser.cpp \
-		src/qt/serveur.cpp \
+        src/qt/chatwindow.cpp \
+        src/qt/statisticspage.cpp \
+        src/qt/blockbrowser.cpp \
+        src/qt/serveur.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
@@ -365,17 +352,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/scrypt-x86.S \
     src/scrypt-x86_64.S \
     src/scrypt.cpp \
-    src/pbkdf2.cpp \
-    src/zerocoin/Accumulator.cpp \
-    src/zerocoin/AccumulatorProofOfKnowledge.cpp \
-    src/zerocoin/Coin.cpp \
-    src/zerocoin/CoinSpend.cpp \
-    src/zerocoin/Commitment.cpp \
-    src/zerocoin/ParamGeneration.cpp \
-    src/zerocoin/Params.cpp \
-    src/zerocoin/SerialNumberSignatureOfKnowledge.cpp \
-    src/zerocoin/SpendMetaData.cpp \
-    src/zerocoin/ZeroTest.cpp
+    src/pbkdf2.cpp
 
 RESOURCES += \
     src/qt/bitcoin.qrc
@@ -392,9 +369,9 @@ FORMS += \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
-		src/qt/forms/statisticspage.ui \
-		src/qt/forms/blockbrowser.ui \
-		src/qt/forms/chatwindow.ui \
+        src/qt/forms/statisticspage.ui \
+        src/qt/forms/blockbrowser.ui \
+        src/qt/forms/chatwindow.ui \
     src/qt/forms/optionsdialog.ui
 
 contains(USE_QRCODE, 1) {
@@ -424,13 +401,12 @@ QMAKE_EXTRA_COMPILERS += TSQM
 
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
-    doc/*.rst doc/*.txt doc/*.md doc/Doxyfile res/bitcoin-qt.rc README.md INSTALL.md LICENSE.md \
-    doc/README.md .gitignore .gitattributes
+    doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_550
+    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_550  #Replaced windows with win - Yash
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
@@ -438,7 +414,7 @@ isEmpty(BOOST_THREAD_LIB_SUFFIX) {
 }
 
 isEmpty(BDB_LIB_PATH) {
-    macx:BDB_LIB_PATH = /opt/local/lib/db48
+    macx:BDB_LIB_PATH =/usr/local/Cellar/berkeley-db4/4.8.30/lib
 }
 
 isEmpty(BDB_LIB_SUFFIX) {
@@ -446,11 +422,11 @@ isEmpty(BDB_LIB_SUFFIX) {
 }
 
 isEmpty(BDB_INCLUDE_PATH) {
-    macx:BDB_INCLUDE_PATH = /opt/local/include/db48
+    macx:BDB_INCLUDE_PATH = /usr/local/Cellar/berkeley-db4/4.8.30/include
 }
 
 isEmpty(BOOST_LIB_PATH) {
-    macx:BOOST_LIB_PATH = /opt/local/lib
+    macx:BOOST_LIB_PATH = /usr/local/lib
 }
 
 isEmpty(BOOST_INCLUDE_PATH) {
@@ -480,7 +456,7 @@ macx:HEADERS += src/qt/macdockiconhandler.h
 macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-macx:ICON = src/qt/res/icons/bitcoin.icns
+macx:ICON = src/qt/res/icons/ColossusCoin2.icns
 macx:TARGET = "ColossusCoin2-Qt"
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
