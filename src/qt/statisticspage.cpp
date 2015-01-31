@@ -54,6 +54,10 @@ void StatisticsPage::updateStatistics()
     QString phase = "";
     if (pindexBest->nHeight < 7200)
     {
+        phase = "X13 POW";
+    }
+    else if (pindexBest->nHeight < 10000)
+    {
         phase = "POS + POW";
     }
     else if (pindexBest->nHeight < 1000000000)
@@ -62,11 +66,11 @@ void StatisticsPage::updateStatistics()
     }
 
     QString subsidy = "";
-    if(pindexBest->nHeight < 100)
+    if(pindexBest->nHeight == 2)
     {
         subsidy = "190000000 CV2";
     }
-		else if(pindexBest->nHeight < 7200)
+		else if(pindexBest->nHeight < 10000)
     {
         subsidy = "1000 CV2";
     }
