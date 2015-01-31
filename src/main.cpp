@@ -1102,16 +1102,8 @@ unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfS
         return bnTargetLimit.GetCompact(); // second block
 
     int nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
-    if(nActualSpacing < 0)
-    {
-        // printf(">> nActualSpacing = %"PRI64d" corrected to 1.\n", nActualSpacing);
-        nActualSpacing = 1;
-    }
-    else if(nActualSpacing > nTargetTimespan)
-    {
-        // printf(">> nActualSpacing = %"PRI64d" corrected to nTargetTimespan (900).\n", nActualSpacing);
-        nActualSpacing = nTargetTimespan;
-    }
+    if (nActualSpacing < 0)
+        nActualSpacing = nTargetSpacing;
 
     // ppcoin: target change every block
     // ppcoin: retarget with exponential moving toward target spacing
