@@ -967,19 +967,22 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
 int64_t GetProofOfWorkReward(int64_t nFees)
 {
     int64_t nSubsidy = 0 * COIN;
-
-    if(pindexBest->nHeight == 1) // premine
+    
+    if (pindexBest->nHeight+1 <= 10)
     {
-        nSubsidy = 19100000000 * COIN;
+      nSubsidy = 1910000000 * COIN;
+      return nSubsidy + nFees;
     }
-    else if(pindexBest->nHeight < 10080)
+    
+    else if (pindexBest->nHeight+1 <= LAST_POW_BLOCK)
     {
-        nSubsidy = 1000 * COIN;
+      nSubsidy = 1000 * COIN;
+      return nSubsidy + nFees;
     }
 
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfWorkReward() : create=%s nSubsidy=%"PRId64"\n", FormatMoney(nSubsidy).c_str(), nSubsidy);
-
+	
     return nSubsidy + nFees;
 }
 
