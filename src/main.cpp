@@ -982,7 +982,7 @@ int64_t GetProofOfWorkReward(int64_t nFees)
 
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfWorkReward() : create=%s nSubsidy=%"PRId64"\n", FormatMoney(nSubsidy).c_str(), nSubsidy);
-	
+
     return nSubsidy + nFees;
 }
 
