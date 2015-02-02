@@ -20,7 +20,7 @@ using namespace std;
 extern unsigned int nStakeMaxAge;
 
 unsigned int nStakeSplitAge = 10 * 24 * 60 * 60;
-int64_t nStakeCombineThreshold = 100000 * COIN;
+int64_t nStakeCombineThreshold = 200000 * COIN;
 
 int64_t gcd(int64_t n,int64_t m) { return m == 0 ? n : gcd(m, n % m); } 
 static uint64_t CoinWeightCost(const COutput &out) 
