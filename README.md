@@ -11,8 +11,8 @@
 | Stake Weight | 7/28 min/max days |
 | Stake Threshold | 10 days |
 | Fee | 20 Coin |
-| RPC Port  | 43521  |
-| P2P Port | 43522 |
+| RPC Port  | 22151  |
+| P2P Port | 22152 |
 | Cryptographic Algorithm  | x11  |
 | Difficulty Retarget  | 16 minutes or 8 blocks |
 
