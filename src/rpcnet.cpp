@@ -1,5 +1,4 @@
-// Copyright (c) 2013 NovaCoin Developers
-// Copyright (c) 2014 The ColossusCoin2 developers
+// Copyright (c) 2009-2012 Bitcoin Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -69,7 +68,7 @@ Value getpeerinfo(const Array& params, bool fHelp)
     return ret;
 }
  
-// ColossusCoin2: send alert.
+// ppcoin: send alert.  
 // There is a known deadlock situation with ThreadMessageHandler
 // ThreadMessageHandler: holds cs_vSend and acquiring cs_main in SendMessages()
 // ThreadRPCServer: holds cs_main and acquiring cs_vSend in alert.RelayTo()/PushMessage()/BeginMessage()

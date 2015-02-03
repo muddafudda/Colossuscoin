@@ -1,6 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2014 The ColossusCoin2 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -342,12 +341,12 @@ public:
         return (GetHex());
     }
 
-    unsigned char* begin() const
+    unsigned char* begin()
     {
         return (unsigned char*)&pn[0];
     }
 
-    unsigned char* end() const
+    unsigned char* end()
     {
         return (unsigned char*)&pn[WIDTH];
     }

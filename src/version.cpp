@@ -1,5 +1,4 @@
-// Copyright (c) 2013 NovaCoin Developers
-// Copyright (c) 2014 The ColossusCoin2 developers
+// Copyright (c) 2012 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include <string>
@@ -9,7 +8,7 @@
 // Name of client reported in the 'version' message. Report the same name
 // for both bitcoind and bitcoin-qt, to make it harder for attackers to
 // target servers or GUI users specifically.
-const std::string CLIENT_NAME("ColossusCoin2");
+const std::string CLIENT_NAME("Satoshi");
 
 // Client version number
 #define CLIENT_VERSION_SUFFIX   ""
@@ -38,7 +37,7 @@ const std::string CLIENT_NAME("ColossusCoin2");
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
 #    define GIT_COMMIT_ID ""
-//#    define GIT_COMMIT_DATE "$Format:%cD"
+#    define GIT_COMMIT_DATE ""
 #endif
 
 #define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \

@@ -1,6 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2014 The ColossusCoin2 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -1456,7 +1455,7 @@ Value walletpassphrase(const Array& params, bool fHelp)
     int64_t* pnSleepTime = new int64_t(params[1].get_int64());
     NewThread(ThreadCleanWalletPassphrase, pnSleepTime);
 
-    // ColossusCoin2: if user OS account compromised prevent trivial sendmoney commands
+    // ppcoin: if user OS account compromised prevent trivial sendmoney commands
     if (params.size() > 2)
         fWalletUnlockStakingOnly = params[2].get_bool();
     else
@@ -1656,7 +1655,7 @@ Value validatepubkey(const Array& params, bool fHelp)
     return ret;
 }
 
-// ColossusCoin2: reserve balance from being staked for network protection
+// ppcoin: reserve balance from being staked for network protection
 Value reservebalance(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
@@ -1695,7 +1694,7 @@ Value reservebalance(const Array& params, bool fHelp)
 }
 
 
-// ColossusCoin2: check wallet integrity
+// ppcoin: check wallet integrity
 Value checkwallet(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 0)
@@ -1718,7 +1717,7 @@ Value checkwallet(const Array& params, bool fHelp)
 }
 
 
-// ColossusCoin2: repair wallet
+// ppcoin: repair wallet
 Value repairwallet(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 0)
@@ -1754,7 +1753,7 @@ Value resendtx(const Array& params, bool fHelp)
     return Value::null;
 }
 
-// ColossusCoin2: make a public-private key pair
+// ppcoin: make a public-private key pair
 Value makekeypair(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)

@@ -1,12 +1,13 @@
-// Copyright (c) 2014 The ColossusCoin2 developers
+// Copyright (c) 2012-2013 The PPCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef ColossusCoin2_KERNEL_H
-#define ColossusCoin2_KERNEL_H
+#ifndef PPCOIN_KERNEL_H
+#define PPCOIN_KERNEL_H
 
 #include "main.h"
 
 // MODIFIER_INTERVAL: time to elapse before new modifier is computed
+static const unsigned int MODIFIER_INTERVAL = 16 * 60;
 extern unsigned int nModifierInterval;
 
 // MODIFIER_INTERVAL_RATIO:
@@ -36,4 +37,4 @@ bool CheckStakeModifierCheckpoints(int nHeight, unsigned int nStakeModifierCheck
 // Get time weight using supplied timestamps
 int64_t GetWeight(int64_t nIntervalBeginning, int64_t nIntervalEnd);
 
-#endif // ColossusCoin2_KERNEL_H
+#endif // PPCOIN_KERNEL_H

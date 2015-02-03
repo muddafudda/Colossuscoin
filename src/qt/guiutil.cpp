@@ -77,7 +77,7 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
 
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    // coin: check prefix
+    // NovaCoin: check prefix
     if(uri.scheme() != QString("ColossusCoin2"))
         return false;
 

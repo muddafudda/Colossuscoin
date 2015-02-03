@@ -1,5 +1,4 @@
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2014 The ColossusCoin2 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,9 +24,10 @@ namespace Checkpoints
     //
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0,     hashGenesisBlock )
-        ( 2,     uint256("0x000003f18a9652c33faf75d8fe986e5eea1bbd937c01000b83f6d270ebcaeaa8"))
-        ( 11,    uint256("0x000001d0895ddef3cf84d8377af5b8b6ea4845e43da8cb7a1224590457b9e3e1"))
+        ( 0,      hashGenesisBlock )
+        ( 100,    uint256("0x0000006f6d50428c4b20aed705454e59001d41526c2a0bec3baf9bc5c17df9c7"))
+        ( 2500,   uint256("0x000000102635b1390c240e0072001b752f7a3d793230d121054e7c3acb53bf66"))
+		( 8200,   uint256("0x33968e2be1926a531fa39e8040d79274b2ae7448a6b6f6ec7827ca026c741f0f"))
     ;
 
     // TestNet has no checkpoints
@@ -66,7 +66,7 @@ namespace Checkpoints
         return NULL;
     }
 
-    // ColossusCoin2: synchronized checkpoint (centrally broadcasted)
+    // ppcoin: synchronized checkpoint (centrally broadcasted)
     uint256 hashSyncCheckpoint = 0;
     uint256 hashPendingCheckpoint = 0;
     CSyncCheckpoint checkpointMessage;
@@ -74,7 +74,7 @@ namespace Checkpoints
     uint256 hashInvalidCheckpoint = 0;
     CCriticalSection cs_hashSyncCheckpoint;
 
-    // ColossusCoin2: get last synchronized checkpoint
+    // ppcoin: get last synchronized checkpoint
     CBlockIndex* GetLastSyncCheckpoint()
     {
         LOCK(cs_hashSyncCheckpoint);
@@ -85,7 +85,7 @@ namespace Checkpoints
         return NULL;
     }
 
-    // ColossusCoin2: only descendant of current sync-checkpoint is allowed
+    // ppcoin: only descendant of current sync-checkpoint is allowed
     bool ValidateSyncCheckpoint(uint256 hashCheckpoint)
     {
         if (!mapBlockIndex.count(hashSyncCheckpoint))
@@ -238,7 +238,7 @@ namespace Checkpoints
         return false;
     }
 
-    // ColossusCoin2: reset synchronized checkpoint to last hardened checkpoint
+    // ppcoin: reset synchronized checkpoint to last hardened checkpoint
     bool ResetSyncCheckpoint()
     {
         LOCK(cs_hashSyncCheckpoint);
@@ -349,12 +349,12 @@ namespace Checkpoints
     }
 }
 
-// ColossusCoin2: sync-checkpoint master key
-const std::string CSyncCheckpoint::strMasterPubKey = "04b16ee281cd61b334df9a5081be6ee05ae8f15578e0c7dc5088433d691bf6aca8f8f820694ba8c18b7e48585d1aada830ecc71de621cb90ae5992c7457dce0cea";
+// ppcoin: sync-checkpoint master key
+const std::string CSyncCheckpoint::strMasterPubKey = "04ba79eba91608decc02d41a64223b5ef5ac2045c8b1706f7603bcff1251228edb47bf140f009a9598345d9a3900b42ded70f6eddfa5bd601926685c218a0e4611";
 
 std::string CSyncCheckpoint::strMasterPrivKey = "";
 
-// ColossusCoin2: verify signature of sync-checkpoint message
+// ppcoin: verify signature of sync-checkpoint message
 bool CSyncCheckpoint::CheckSignature()
 {
     CKey key;
@@ -369,7 +369,7 @@ bool CSyncCheckpoint::CheckSignature()
     return true;
 }
 
-// ColossusCoin2: process synchronized checkpoint
+// ppcoin: process synchronized checkpoint
 bool CSyncCheckpoint::ProcessSyncCheckpoint(CNode* pfrom)
 {
     if (!CheckSignature())
