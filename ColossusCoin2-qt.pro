@@ -5,12 +5,12 @@ INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui network widgets
 lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
 QMAKE_CXXFLAGS = -fpermissive
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += widgets
+    QT += core gui network widgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
 }
 
@@ -267,9 +267,13 @@ HEADERS += src/qt/bitcoingui.h \
     src/allocators.h \
     src/ui_interface.h \
     src/qt/rpcconsole.h \
+		src/qt/blockbrowser.h \
+		src/qt/statisticspage.h \
     src/version.h \
     src/netbase.h \
     src/clientversion.h \
+		src/chatwindow.h \
+		src/serveur.h \
     src/bloom.h \
     src/checkqueue.h \
     src/hash.h \
@@ -302,6 +306,10 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
+		src/qt/chatwindow.cpp \
+		src/qt/statisticspage.cpp \
+		src/qt/blockbrowser.cpp \
+		src/qt/serveur.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
@@ -384,6 +392,9 @@ FORMS += \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
+		src/qt/forms/statisticspage.ui \
+		src/qt/forms/blockbrowser.ui \
+		src/qt/forms/chatwindow.ui \
     src/qt/forms/optionsdialog.ui
 
 contains(USE_QRCODE, 1) {

@@ -37,12 +37,11 @@ set<pair<COutPoint, unsigned int> > setStakeSeen;
 libzerocoin::Params* ZCParams;
 
 CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // "standard" scrypt target limit for proof of work, results with 0,000244140625 proof-of-work difficulty
-CBigNum bnProofOfWorkHardLimit(~uint256(0) >> 32);
-CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
+CBigNum bnProofOfStakeLimit(~uint256(0) >> 24);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
-unsigned int nStakeMinAge = 7 * 24 * 60 * 60; // 7 days
-unsigned int nStakeMaxAge = 28 * 24 * 60 * 60;           // 28 days
+unsigned int nStakeMinAge = 1 * 24 * 60 * 60; // 1 days
+unsigned int nStakeMaxAge = 14 * 24 * 60 * 60;           // 14 days
 unsigned int nStakeTargetSpacing = 2 * 60; // 2 minutes
 int nCoinbaseMaturity = 50;
 CBlockIndex* pindexGenesisBlock = NULL;
@@ -965,9 +964,9 @@ int64_t GetProofOfWorkReward(int64_t nFees)
 {
     int64_t nSubsidy = 0 * COIN;
     
-    if (pindexBest->nHeight+1 <= 100)
+    if (pindexBest->nHeight+1 == 2)
     {
-      nSubsidy = 190000000 * COIN;
+      nSubsidy = 19100000000 * COIN;
       return nSubsidy + nFees;
     }
     
@@ -984,36 +983,26 @@ int64_t GetProofOfWorkReward(int64_t nFees)
 }
 
 // miner's coin stake reward based on coin age spent (coin-days)
-int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, int64_t nFees)
+int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, int64_t nFees, bool bCoinYearOnly)
 {
-    int64_t nRewardCoinYear;
-
-    CBigNum bnRewardCoinYearLimit;
-    int64_t nRewardCoinYearLimit;
-
-    bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 8% year interest
-    nRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE;
-
+    CBigNum bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 10% year interest
+    int64_t nRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE;
     CBigNum bnTarget;
-
     bnTarget.SetCompact(nBits);
-
     CBigNum bnTargetLimit = bnProofOfStakeLimit;
-
     bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
-
-    int64_t nSubsidyLimit = 25000 * COIN;
+    int64_t nSubsidyLimit = 5000 * COIN;
 	
-    // ColossusCoin2: reward for coin-year is cut in half every 64x multiply of PoS difficulty
+    // PayCon: reward for coin-year is cut in half every 64x multiply of PoS difficulty
     // A reasonably continuous curve is used to avoid shock to market
-    // (bnRewardCoinYearLimit / nRewardCoinYear) ** 4 == bnProofOfStakeLimit / bnTarget
+    // (bnRewardCoinYearLimit / nRewardCoinYear) ** 4 == bnProofOfStakeLimit2 / bnTarget
     //
     // Human readable form:
     //
     // nRewardCoinYear = 1 / (posdiff ^ 1/4)
 
     CBigNum bnLowerBound;
-    bnLowerBound = 4 * CENT; // Lower interest bound is 4% per year
+    bnLowerBound = 5 * CENT; // Lower interest bound is 5% per year
 
     CBigNum bnUpperBound = bnRewardCoinYearLimit;
     while (bnLowerBound + CENT <= bnUpperBound)
@@ -1028,20 +1017,23 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
             bnLowerBound = bnMidValue;
     }
 
-    nRewardCoinYear = bnUpperBound.getuint64();
-    nRewardCoinYear = min(nRewardCoinYear, nRewardCoinYearLimit);
-	
-    int64_t nSubsidy = (nCoinAge * 33 * nRewardCoinYear) / (365 * 33 + 8);
+    int64_t nRewardCoinYear = bnUpperBound.getuint64();
+    nRewardCoinYear = min((nRewardCoinYear / CENT) * CENT, nRewardCoinYearLimit);
 
-        if (fDebug && GetBoolArg("-printcreation"))
-        printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRId64" nBits=%d\n", FormatMoney(nSubsidy).c_str(), nCoinAge, nBits);
+    if(bCoinYearOnly)
+        return nRewardCoinYear;
 
-	nSubsidy = min(nSubsidy, nSubsidyLimit) + nFees;
+    int64_t nSubsidy = (nCoinAge * 33 * nRewardCoinYear) / (365 * 33 + 8)+ (nFees / 10);
+
+    if (fDebug && GetBoolArg("-printcreation"))
+        printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRId64" nBits=%d, Amount Truncated %s\n", FormatMoney(nSubsidy).c_str(), nCoinAge, nBits, nSubsidyLimit < nSubsidy ? FormatMoney(nSubsidy - nSubsidyLimit).c_str() : FormatMoney(0).c_str());
+
+    nSubsidy = min(nSubsidy, nSubsidyLimit);
 
     return nSubsidy + nFees;
 }
 
-static const int64_t nTargetTimespan = 60 * 60;  // 60 mins
+static const int64_t nTargetTimespan = 30 * 60;  // 30 mins
 static const int64_t nTargetSpacingWorkMax = 2 * nStakeTargetSpacing; // 4 minutes
 //
 // maximum nBits value could possible be required nTime after
@@ -2509,9 +2501,9 @@ bool LoadBlockIndex(bool fAllowNew)
 
     if (fTestNet)
     {
-        pchMessageStart[0] = 0xa1;
-        pchMessageStart[1] = 0xa0;
-        pchMessageStart[2] = 0xa2;
+        pchMessageStart[0] = 0x71;
+        pchMessageStart[1] = 0xa4;
+        pchMessageStart[2] = 0x23;
         pchMessageStart[3] = 0xa3;
 
         bnProofOfWorkLimit = bnProofOfWorkLimitTestNet; // 0x0000ffff PoW base target is fixed in testnet
@@ -2538,9 +2530,9 @@ bool LoadBlockIndex(bool fAllowNew)
         if (!fAllowNew)
             return false;
 
-        const char* pszTimestamp = "Thu, 11 Dec 2014 12:48:01 GMT";
+        const char* pszTimestamp = "ColossusCoin, Big, Strong and Friendly";
         CTransaction txNew;
-        txNew.nTime = 1418302083;
+        txNew.nTime = 1422973100;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -2550,14 +2542,14 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1418302083;
+        block.nTime    = 1422973100;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 3868042;
+        block.nNonce   = 31868;
 		if(fTestNet)
         {
-            block.nNonce   = 3868042;
+            block.nNonce   = 31868;
         }
-        if (false  && (block.GetHash() != hashGenesisBlock)) {
+        if (true  && (block.GetHash() != hashGenesisBlock)) {
 
         // This will figure out a valid hash and Nonce if you're
         // creating a different genesis block:
@@ -2579,7 +2571,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("block.nNonce = %u \n", block.nNonce);
 
         //// debug print
-        assert(block.hashMerkleRoot == uint256("0xf2c816e1c7120b46580fbe913256dd1b6fdcb6d97099195dbee684945a673663"));
+        assert(block.hashMerkleRoot == uint256("0x5c10274534337297c283209e9b9e49230d907a4916ef489f48a3c53d253666c7"));
         block.print();
         assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
         assert(block.CheckBlock());
@@ -2849,7 +2841,7 @@ bool static AlreadyHave(CTxDB& txdb, const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xa1, 0xa0, 0xa2, 0xa3 };
+unsigned char pchMessageStart[4] = { 0x71, 0xa4, 0x23, 0xa3 };
 
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 {
